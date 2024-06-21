@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selector Aleatorio de Opciones</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            background-color: #3dcf91;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .box {
+            width: min(90%, 31.25em);
+            position: absolute;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
+        }
+        .container {
+            background-color: #11141d;
+            border-radius: 0.5em;
+            padding: 3em;
+        }
+        .container h1 {
+            color: #3dcf91;
+            margin-bottom: 1em;
+        }
+        .container p {
+            color: #909090;
+            margin-bottom: 1em;
+        }
+        .container textarea {
+            resize: none;
+            width: 100%;
+            background-color: #292c34;
+            color: #ffffff;
+            padding: 0.5em;
+            border: none;
+            border-radius: 0.5em;
+            outline: none;
+            margin-bottom: 1em;
+        }
+        .container button {
+            display: block;
+            background-color: #3dcf91;
+            border: none;
+            outline: none;
+            padding: 1em 2em;
+            border-radius: 0.5em;
+            margin: 1.5em auto 0 auto;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        p#result {
+            text-align: center;
+            color: #ffffff;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="container">
+            <h1>Selector Aleatorio de Opciones</h1>
+            <p>Ingrese sus opciones, separadas por comas:</p>
+            <textarea
+                id="choices"
+                rows="3"
+                placeholder="Opción 1, Opción 2, Opción 3"
+            ></textarea>
+            <button id="pickButton">Elegir una Opción Aleatoria</button>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script>
+        // Función para seleccionar una opción aleatoria
+        let pickRandomChoice = () => {
+            const choicesInput = document.getElementById("choices");
+            const resultElement = document.getElementById("result");
+
+            // Obtener las opciones del campo de entrada y dividirlas en un array
+            const choices = choicesInput.value
+                .split(",")
+                .map((choice) => choice.trim());
+
+            // Verificar si hay opciones para elegir
+            if (
+                choices.length === 0 ||
+                (choices.length === 1 && choices[0] === "")
+            ) {
+                resultElement.textContent = "Por favor, ingrese opciones.";
+                return;
+            }
+
+            // Generar un índice aleatorio
+            const randomIndex = Math.floor(Math.random() * choices.length);
+
+            // Mostrar la opción seleccionada aleatoriamente
+            const randomChoice = choices[randomIndex];
+            resultElement.textContent = `Opción Aleatoria: ${randomChoice}`;
+        };
+
+        const pickButton = document.getElementById("pickButton");
+        // Agregar un event listener al botón
+        pickButton.addEventListener("click", pickRandomChoice);
+    </script>
+</body>
+</html>
